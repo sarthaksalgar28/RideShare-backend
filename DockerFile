@@ -1,0 +1,20 @@
+# Step 1: Use the .NET 9.0 SDK image for building the app
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build-env
+WORKDIR /app
+
+# Step 2: Copy everything into the container
+COPY . ./
+
+# Step 3: Restore the dependencies
+RUN dotnet restore
+
+# Step 4: Build and publish the app
+RUN dotnet publish -c Release -o out
+
+# Step 5: Use the runtime image to run the app
+FROM mcr.microsoft.com/dotnet/aspnet:9.0
+WORKDIR /app
+COPY --from=build-env /app/out .
+
+# Step 6: Command to run the app
+ENTRYPOINT ["dotnet", "RideShare.dll"]
