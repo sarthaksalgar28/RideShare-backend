@@ -24,7 +24,7 @@ namespace RideShare.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=RideShare;Integrated Security=True;Pooling=False;Encrypt=False;Trust Server Certificate=False");
+                optionsBuilder.UseSqlServer("myCon");
             }
         }
 
