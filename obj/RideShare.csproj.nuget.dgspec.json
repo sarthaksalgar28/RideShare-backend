@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sarthak\\Source\\Repos\\RideShare\\RideShare\\RideShare.csproj": {}
+    "C:\\Users\\Sarthak\\source\\repos\\RideShare\\RideShare\\RideShare.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sarthak\\Source\\Repos\\RideShare\\RideShare\\RideShare.csproj": {
+    "C:\\Users\\Sarthak\\source\\repos\\RideShare\\RideShare\\RideShare.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sarthak\\Source\\Repos\\RideShare\\RideShare\\RideShare.csproj",
+        "projectUniqueName": "C:\\Users\\Sarthak\\source\\repos\\RideShare\\RideShare\\RideShare.csproj",
         "projectName": "RideShare",
-        "projectPath": "C:\\Users\\Sarthak\\Source\\Repos\\RideShare\\RideShare\\RideShare.csproj",
+        "projectPath": "C:\\Users\\Sarthak\\source\\repos\\RideShare\\RideShare\\RideShare.csproj",
         "packagesPath": "C:\\Users\\Sarthak\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sarthak\\Source\\Repos\\RideShare\\RideShare\\obj\\",
+        "outputPath": "C:\\Users\\Sarthak\\source\\repos\\RideShare\\RideShare\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
