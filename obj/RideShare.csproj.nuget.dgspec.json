@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sarthak\\Source\\Repos\\RideShare\\RideShare\\RideShare.csproj": {}
+    "C:\\Users\\Sarthak\\source\\repos\\RideShare\\RideShare\\RideShare.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sarthak\\Source\\Repos\\RideShare\\RideShare\\RideShare.csproj": {
+    "C:\\Users\\Sarthak\\source\\repos\\RideShare\\RideShare\\RideShare.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sarthak\\Source\\Repos\\RideShare\\RideShare\\RideShare.csproj",
+        "projectUniqueName": "C:\\Users\\Sarthak\\source\\repos\\RideShare\\RideShare\\RideShare.csproj",
         "projectName": "RideShare",
-        "projectPath": "C:\\Users\\Sarthak\\Source\\Repos\\RideShare\\RideShare\\RideShare.csproj",
+        "projectPath": "C:\\Users\\Sarthak\\source\\repos\\RideShare\\RideShare\\RideShare.csproj",
         "packagesPath": "C:\\Users\\Sarthak\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sarthak\\Source\\Repos\\RideShare\\RideShare\\obj\\",
+        "outputPath": "C:\\Users\\Sarthak\\source\\repos\\RideShare\\RideShare\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -22,15 +22,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net9.0"
+          "net8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net9.0": {
-            "targetAlias": "net9.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -47,26 +47,22 @@
         "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
-        "net9.0": {
-          "targetAlias": "net9.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
-            "Microsoft.AspNetCore.OpenApi": {
+            "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[9.0.0, )"
             },
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[6.0.36, )"
-            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[6.0.36, )"
+              "version": "[9.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.36, )"
+              "version": "[9.0.0, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
