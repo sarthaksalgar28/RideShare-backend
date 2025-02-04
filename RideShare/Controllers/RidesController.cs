@@ -17,6 +17,26 @@ namespace RideShare.Controllers
         {
             _context = context;
         }
+        [HttpPost("update-remaining-passenger/{rideId}")]
+        public async Task<IActionResult> UpdateRemainingPassengers(int rideId)
+        {
+            var ride = await _context.Rides.FindAsync(rideId);
+            if (ride == null)
+            {
+                return NotFound();
+            }
+
+            if (ride.remainingpassengers > 0)
+            {
+                ride.remainingpassengers -= 1;  // Decrease remaining passengers
+                await _context.SaveChangesAsync();
+                return Ok(ride);
+            }
+            else
+            {
+                return BadRequest("No remaining passengers.");
+            }
+        }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Ride>>> GetRidesWithDetails()
@@ -34,6 +54,8 @@ namespace RideShare.Controllers
                         ride.Date,
                         DriverName = user.Name, // Get driver name from Users table
                         ride.Price,
+                        ride.Passengers,
+                        ride.remainingpassengers
                         
                     })
                 .ToListAsync(); // Fetch all rides first
@@ -60,8 +82,13 @@ namespace RideShare.Controllers
 
             try
             {
+                // Set the remaining passengers to the number of passengers
+                ride.remainingpassengers = ride.Passengers;
+
+                // Add the ride to the database
                 await _context.Rides.AddAsync(ride);
                 await _context.SaveChangesAsync();
+
                 return Ok(new { success = true, message = "Ride published successfully!" });
             }
             catch (DbUpdateException ex)
@@ -72,15 +99,18 @@ namespace RideShare.Controllers
         }
 
 
+
         [HttpGet("myrides/{driverId}")]
         public async Task<IActionResult> GetRidesByDriverId(int driverId)
         {
             try
             {
+                // Fetching rides for the given driverId
                 var rides = await _context.Rides
                     .Where(r => r.DriverId == driverId)
                     .ToListAsync();
 
+                // Check if no rides are found
                 if (rides == null || rides.Count == 0)
                 {
                     return NotFound(new { message = "No rides found for this driver." });
@@ -90,18 +120,23 @@ namespace RideShare.Controllers
             }
             catch (Exception ex)
             {
+                // Log the error with more details for debugging
                 Console.WriteLine($"Error retrieving rides for driver {driverId}: {ex.Message}");
+                // Log the stack trace for further debugging
+                Console.WriteLine(ex.StackTrace);
                 return StatusCode(500, "Internal server error");
             }
-
-
         }
 
 
 
-
-
     }
+
+
+
+
+
 }
+
 
 

@@ -11,7 +11,8 @@ namespace RideShare.Models
         public string Date { get; set; } = null!;
         public decimal Price { get; set; }
         public int Passengers { get; set; }
+        public int remainingpassengers { get; set; }
+        public int bookedPassengers { get; set; }
 
-       
     }
 }

@@ -19,7 +19,7 @@ namespace RideShare.Models
         public virtual DbSet<ContactForm> ContactForms { get; set; } = null!;
         public virtual DbSet<Ride> Rides { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
-
+        public DbSet<Payment> Payments { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
