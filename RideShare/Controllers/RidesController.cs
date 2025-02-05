@@ -17,6 +17,52 @@ namespace RideShare.Controllers
         {
             _context = context;
         }
+        [HttpGet("filter")]
+        public async Task<ActionResult<IEnumerable<object>>> GetFilteredRides([FromQuery] string from, [FromQuery] string to, [FromQuery] string date)
+        {
+            try
+            {
+                var futureRides = await _context.Rides
+                    .OrderBy(r => r.Date)
+                    .Join(
+                        _context.Users,
+                        ride => ride.DriverId,
+                        user => user.Id,
+                        (ride, user) => new
+                        {
+                            ride.Id,
+                            ride.Route,
+                            ride.Date,
+                            DriverName = user.Name,
+                            ride.Price,
+                            ride.Passengers,
+                            BookedPassengers = _context.Payments.Count(p => p.rideId == ride.Id),
+                        })
+                    .Where(ride => (ride.Passengers - ride.BookedPassengers) > 0) // Filter for available seats
+                    .Where(ride => ride.Route.Contains(from) && ride.Route.Contains(to)) // Filter by source and destination
+                    .Where(ride => ride.Date.Contains(date)) // Filter by date
+                    .Select(ride => new
+                    {
+                        ride.Id,
+                        ride.Route,
+                        ride.Date,
+                        ride.DriverName,
+                        ride.Price,
+                        ride.Passengers,
+                        RemainingPassengers = ride.Passengers - ride.BookedPassengers
+                    })
+                    .ToListAsync();
+
+                return Ok(futureRides);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching filtered rides: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+
         [HttpPost("update-remaining-passenger/{rideId}")]
         public async Task<IActionResult> UpdateRemainingPassengers(int rideId)
         {
@@ -39,34 +85,41 @@ namespace RideShare.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Ride>>> GetRidesWithDetails()
+        public async Task<ActionResult<IEnumerable<object>>> GetRidesWithDetails()
         {
             var futureRides = await _context.Rides
-                .OrderBy(r => r.Date) // Sort by Date
-                .Join(
-                    _context.Users, // Join with Users table
-                    ride => ride.DriverId, // From Rides table, DriverId column
-                    user => user.Id, // From Users table, Id column
-                    (ride, user) => new // Anonymous object with combined fields
-                    {
-                        ride.Id,
-                        ride.Route,
-                        ride.Date,
-                        DriverName = user.Name, // Get driver name from Users table
-                        ride.Price,
-                        ride.Passengers,
-                        ride.remainingpassengers
-                        
-                    })
-                .ToListAsync(); // Fetch all rides first
+     .OrderBy(r => r.Date)
+     .Join(
+         _context.Users,
+         ride => ride.DriverId,
+         user => user.Id,
+         (ride, user) => new
+         {
+             ride.Id,
+             ride.Route,
+             ride.Date,
+             DriverName = user.Name,
+             ride.Price,
+             ride.Passengers,
+             BookedPassengers = _context.Payments.Count(p => p.rideId == ride.Id),
+         })
+     .Where(ride => (ride.Passengers - ride.BookedPassengers) > 0)  // Filter for available seats
+     .Select(ride => new
+     {
+         ride.Id,
+         ride.Route,
+         ride.Date,
+         ride.DriverName,
+         ride.Price,
+         ride.Passengers,
+         RemainingPassengers = ride.Passengers - ride.BookedPassengers
+     })
+     .ToListAsync();
+
+
 
             return Ok(futureRides);
         }
-
-
-
-
-
 
 
         [HttpPost("publish")]
@@ -85,6 +138,7 @@ namespace RideShare.Controllers
                 // Set the remaining passengers to the number of passengers
                 ride.remainingpassengers = ride.Passengers;
 
+
                 // Add the ride to the database
                 await _context.Rides.AddAsync(ride);
                 await _context.SaveChangesAsync();
@@ -97,6 +151,14 @@ namespace RideShare.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
+
+
+
+
+
+
+
 
 
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RideShare.Models; // Ensure this namespace contains your Driver model
-using System.Threading.Tasks;
+
+using RideShare.Models; 
+
 
 namespace RideShare.Controllers
 {
