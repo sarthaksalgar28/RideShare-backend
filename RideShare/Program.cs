@@ -25,11 +25,16 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Bind dynamic port (for Railway deployment)
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000"; // Default to 5000 if no PORT variable exists
+app.Urls.Add($"http://*:{port}"); // Bind app to dynamic port
+
 // Use CORS
 app.UseCors("AllowAllOrigins");
 
 if (app.Environment.IsDevelopment())
 {
+    // Enable Swagger UI only in Development environment
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
@@ -38,7 +43,14 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+// Ensure HTTPS redirection (useful in production)
 app.UseHttpsRedirection();
+
+// Enable Authorization (if using Auth in your API)
 app.UseAuthorization();
+
+// Map API controllers
 app.MapControllers();
+
+// Start the app
 app.Run();
