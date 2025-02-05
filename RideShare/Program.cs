@@ -44,6 +44,7 @@ if (app.Environment.IsDevelopment())
         c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
     });
 }
+app.MapGet("/health", () => Results.Ok("Healthy"));
 
 app.UseHealthChecks("/health");
 // Ensure HTTPS redirection (useful in production)
