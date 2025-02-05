@@ -1,6 +1,6 @@
 [build]
 builder = "Dockerfile"
-dockerfilepath = "/Dockerfile"  # No './' prefix here
+dockerfilepath = "./Dockerfile"  # No './' prefix here
 
 [deploy]
 startCommand = "dotnet RideShare.dll"
