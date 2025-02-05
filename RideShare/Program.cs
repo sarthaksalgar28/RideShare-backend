@@ -44,11 +44,17 @@ if (app.Environment.IsDevelopment())
         c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
     });
 }
+app.MapGet("/", () => Results.Ok("Welcome to RideShare API"));
+
 app.MapGet("/health", () => Results.Ok("Healthy"));
 
 app.UseHealthChecks("/health");
-// Ensure HTTPS redirection (useful in production)
-app.UseHttpsRedirection();
+
+// Only enable HTTPS redirection in Production
+//if (app.Environment.IsProduction())
+//{
+//    //app.UseHttpsRedirection();
+//}
 
 // Enable Authorization (if using Auth in your API)
 app.UseAuthorization();
