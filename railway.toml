@@ -1,0 +1,3 @@
+[build]
+builder="Dockerfile"
+dockerfilepath="./RideShare/Dockerfile"

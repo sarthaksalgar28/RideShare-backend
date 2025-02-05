@@ -1,8 +1,9 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using RideShare.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddHealthChecks();
 // Add services to the container.
 builder.Services.AddControllers();
 
@@ -27,7 +28,8 @@ var app = builder.Build();
 
 // Bind dynamic port (for Railway deployment)
 var port = Environment.GetEnvironmentVariable("PORT") ?? "5000"; // Default to 5000 if no PORT variable exists
-app.Urls.Add($"http://*:{port}"); // Bind app to dynamic port
+builder.WebHost.UseUrls($"http://*:{port}"); // Bind app to dynamic port
+
 
 // Use CORS
 app.UseCors("AllowAllOrigins");
@@ -43,6 +45,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseHealthChecks("/health");
 // Ensure HTTPS redirection (useful in production)
 app.UseHttpsRedirection();
 
