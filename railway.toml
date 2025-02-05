@@ -1,8 +1,8 @@
 [build]
-builder="Dockerfile"
-dockerfilepath="RideShare/RideShare/Dockerfile"
+builder = "Dockerfile"
+dockerfilepath = "./RideShare/Dockerfile"
 
 [deploy]
-startCommand="dotnet RideShare.dll"
-restartPolicyType="always"
-healthCheckPath="/health"
+startCommand = "dotnet RideShare.dll"
+restartPolicyType = "always"
+healthCheckPath = "/health"
